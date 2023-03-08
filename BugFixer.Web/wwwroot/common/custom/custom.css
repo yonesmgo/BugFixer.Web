@@ -1,0 +1,60 @@
+﻿.error-style {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-top: -20px;
+    font-weight: bold;
+}
+
+.mt-50 {
+    margin-top: 50px
+}
+
+.display-none {
+    display: none !important;
+}
+
+.input-style {
+    position: relative;
+    top: 2px;
+    margin-left: 6px;
+    font-size: 14px;
+    width: 100%;
+    line-height: 32px;
+    padding: 0 15px;
+    border: 1px solid #e4ecef;
+    color: #6b7f9d;
+    font-size: 14px;
+    word-spacing: -1px;
+    margin-top: 8px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.ck-label {
+    display: none !important;
+}
+
+.ck-editor__editable {
+    min-height: 300px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+
+.ms-helper {
+    margin-top: 56px !important;
+}
+
+.current {
+    color: green !important;
+    border: green 2px solid !important;
+}
+
+.ms-1 {
+    margin-left: 10px !important;
+    color: #2a4658 ;
+}

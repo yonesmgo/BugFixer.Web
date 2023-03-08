@@ -1,0 +1,129 @@
+﻿@model BugFixer.Domain.ViewModels.Question.CreateQuestionViewModel
+@{
+    ViewData["Title"] = "پرسش پرسش جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link href="/css/question.css" rel="stylesheet" />
+    <link href="/css/page.css" rel="stylesheet" />
+    <link href="/css/form.css" rel="stylesheet" />
+    <link href="/common/magicsuggest/magicsuggest.css" rel="stylesheet" />
+}
+
+@section Header
+{
+    <partial name="_Header" />
+}
+
+
+<div class="user-page-style">
+
+    <div class="breadcumb-layer">
+        <div class="container">
+            <ul itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
+                <li itemtype="http://schema.org/ListItem" itemscope="" itemprop="itemListElement"><a href="/" itemprop="item"><span itemprop="name"> صفحه اصلی  </span></a></li>
+                <li itemtype="http://schema.org/ListItem" itemscope="" itemprop="itemListElement"><a href="#" itemprop="item"><span itemprop="name"> @ViewData["Title"] </span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="questions-layer page-style">
+
+        <div class="container">
+
+            <div class="right-col">
+
+                <section class="question-submit-layer">
+
+                    <header class="top-heading"><h1> <a href="javascript:void()">ثبت پرسش جدید</a> </h1> <span><i>12K</i> پرسش تا بحال ثبت شده است </span></header>
+
+                    <div class="inner">
+                        <partial name="_CreateQuestionBotPArtial" />
+
+                        <div class="submit-layer">
+                            <p class="page-style"> لطفا قبل از ثبت پرسش قوانین را مطالعه نمایید ، ثبت پرسش شما تایید قوانین محسوب خواهد شد :</p>
+                            <ul>
+                                <li> ادب و احترام در گفتگو می بایست رعایت شود ، در صورت مشاهده تخلف کاربری شما مسدود خواهد شد. </li>
+                                <li> از ثبت پرسش تکراری خودداری نمایید. </li>
+                                <li> عنوان پرسش واضح و تا حد امکان کوتاه باشد. </li>
+                                <li> از تگ های کاملا مرتبط استفاده نمایید. </li>
+                                <li> جهت کسب پاسخ صریح ، متن پرسش خود را کاملا واضح ارسال نمایید. </li>
+                            </ul>
+
+                            <form class="form-layer-style" asp-action="CreateQuestion" asp-controller="Question" method="post">
+                                <input type="hidden" asp-for="UserID">
+                                <input type="hidden" asp-for="SelectedTagJson" id="SelectedTagJson" value="@Model?.SelectedTagJson">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-layer">
+                                            <label asp-for="Title" class="mb-10"></label>
+                                            <input type="text" asp-for="Title">
+                                            <span asp-validation-for="Title"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="textarea-layer">
+                                            <label asp-for="Description" class="mb-10"></label>
+                                            <textarea asp-for="Description" class="editor"></textarea>
+                                            <span asp-validation-for="Description"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="input-layer">
+                                            <!-- Use YourSelf autocomplete Plugin -->
+                                            <label class="mb-10"><i class="icon-document"></i>تگ های مرتبط با پرسش شما</label>
+                                            <input class="magicsuggest" id="selecttag" name="Tags">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-7 pull-left">
+                                        <button type="submit" class="submit-button green"> <span>ثبت پرسش</span> </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- aside -->
+            <aside>
+                <partial name="_LeftSide" />
+            </aside>
+            <!-- /aside -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <partial name="_JqueryValidation" />
+    <partial name="_CKEditorPatial" />
+    <script src="/js/question.js"></script>
+    <script src="/common/magicsuggest/magicsuggest.js"></script>
+    <script>
+        $(function () {
+            var ms=$(`#selecttag`).magicSuggest({
+                data: '/get-tags',
+                queryParam: 'name',
+                method: 'get',
+                minChars: 2,
+                placeholder: 'لطفا تگ های مورد نظر خود را وارد کنید',
+                style: 'direction: ltr !important',
+                minCharsRenderer: function (v) {
+                    return 'لطفا حداقل 2 کاراکتر را وارد کنید';
+                },
+                useCommaKey: false,
+                allowDuplicates: false,
+                noSuggestionText: ' کلمه  {{name}}   درپیشنهادات سایت موجود نیست',
+            });
+            var jsonValue = $("#SelectedTagJson").val();
+            if (jsonValue !== '') {
+                ms.setValue(JSON.parse(jsonValue));
+            }
+        })
+    </script>
+}
+
+

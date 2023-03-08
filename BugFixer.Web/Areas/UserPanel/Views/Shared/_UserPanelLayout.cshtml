@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_layout";
+    ViewData["Title"] = ViewData["Title"];
+}
+@section Styles{
+    @await RenderSectionAsync("Styles", false)
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+
+}
+@section Header{
+    @await RenderSectionAsync("Header", true)
+}
+@section Scripts{
+    @await RenderSectionAsync("Scripts", false)
+    <script src="/js/slimscroll.js"></script>
+    <script src="/js/progress.js"></script>
+    <script src="/js/account.js"></script>
+}
+
+<div class="breadcumb-layer">
+    <div class="container">
+        <ul itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
+            <li itemtype="http://schema.org/ListItem" itemscope="" itemprop="itemListElement"><a href="/" itemprop="item"><span itemprop="name"> صفحه اصلی </span></a></li>
+            @await RenderSectionAsync("Breadrcumb", true)
+        </ul>
+    </div>
+</div>
+
+
+
+<div class="account-layer">
+    <div class="container">
+        <!-- right side -->
+        @await Component.InvokeAsync("UserSidebar")
+        <!-- /right side -->
+        <!-- left side -->
+        <div class="left-side">
+
+            @RenderBody()
+
+        </div>
+        <!-- /left side -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+

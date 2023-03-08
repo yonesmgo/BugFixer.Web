@@ -1,0 +1,106 @@
+﻿@using BugFixer.Application.Extentions
+@model BugFixer.Domain.Entities.Account.User
+<div class="right-side">
+    <!-- avatar -->
+    <div class="quick-access layer-style">
+        <div class="img-layer">
+            <input type="file" onchange="UploadUserAvatar('@Url.Action("ChangeUserAvatar", "Home", new { area = "UserPanel" })')" accept=".png, .jpg, .jpeg" name="UserAvatar" id="UserAvatar" class="display-none" />
+            <a onclick="OpenAvatarInput()" class="change-image"><i class="icon-pencil-edit"></i></a>
+            <img src="@BugFixer.Application.Statics.PathTools.USerAvatarPath@Model.Avatar">
+        </div>
+        <!-- you can use "gold" , "silver , "bronze" for medals -->
+        @{
+            var classname = string.Empty;
+            var classnamefarsi = string.Empty;
+            if (Model.Medal is not null)
+            {
+                switch (Model.Medal)
+                {
+                    case BugFixer.Domain.Enums.UserMedal.Bronze:
+                        classname = "bronze";
+                        break;
+                    case BugFixer.Domain.Enums.UserMedal.Silver:
+                        classname = "silver";
+                        break;
+                    case BugFixer.Domain.Enums.UserMedal.Gold:
+                        classname = "gold";
+                        break;
+                }
+            }
+        }
+        <div class="detail @classname">
+            <h3>
+                @if (Model.Medal is not null)
+                {<i class="icon-quality"></i>} @Model.GetUserDisplayname()
+            </h3>
+            <span> عضویت : @Model.CreateDate.ToShamsi() </span>
+            <span class="">
+                @{
+                    if (classname.Equals("bronze"))
+                    {
+                        <span>کاربر برنزی </span>
+                    }
+                    else if (classname.Equals("silver"))
+                    {
+                        <span>کاربر نقره ای</span>
+                    }
+                    else if (classname.Equals("gold"))
+                    {
+                        <span>کاربر طلایی</span>
+                    }
+                    else
+                    {
+                        <span>کاربر معمولی</span>
+                    }
+                } با @Model.Score امتیاز
+            </span>
+        </div>
+        <ul>
+            <li><a asp-action="index" asp-controller="home" asp-area="UserPanel" data-toggle="tooltip" data-placement="top" title="" data-original-title=" داشبورد "><i class="icon-settings"></i></a></li>
+            <li><a asp-action="EditInfo" asp-controller="account" asp-area="UserPanel" data-toggle="tooltip" data-placement="top" title="" data-original-title=" ویرایش اطلاعات "><i class="icon-profile"></i></a></li>
+            <li><a asp-action="ForgotPassword" asp-controller="account" data-toggle="tooltip" data-placement="top" title="" data-original-title=" تغییر رمز عبور "><i class="icon-safe"></i></a></li>
+            <li><a asp-action="logout" asp-controller="account" data-toggle="tooltip" data-placement="top" title="" data-original-title=" خروج از حساب "><i class="icon-power-symbol"></i></a></li>
+        </ul>
+    </div>
+    <!-- /avatar -->
+    <!-- side bar -->
+    <section class="sidebar layer-style">
+        <header><h3> منوی دسترسی </h3><i class="icon-chevron-down"></i></header>
+        <div class="inner">
+            <ul>
+                <li><a asp-action="Index" asp-controller="Home" asp-area="UserPanel"> داشبورد  </a> </li>
+                <li class="">
+                    <span> حساب کاربری </span>
+                    <ul style="display: none;">
+
+                        <li><a asp-action="EditInfo" asp-controller="Account" asp-area="UserPanel"> ویرایش حساب کاربری </a></li>
+                        <li class="active"><a href="account-2.html"> تنظیمات حساب کاربری </a></li>
+                        <li><a href="account-3.html"> تغییر رمز عبور </a></li>
+                    </ul>
+                    @*<label class="sign-dropdown"><i class="icon-chevron-up"></i></label>
+                        <label class="sign-dropdown"><i class="icon-chevron-up"></i></label>*@
+                </li>
+                <li><a href="account-6.html"> پاسخ های من  </a> <i> 12 </i> </li>
+                <li><a href="account-7.html"> دنبال کنندگان  </a> <i> 12 </i> </li>
+                <li><a href="account-8.html"> دنبال شونده ها  </a> <i> 24 </i> </li>
+                <li><a href="account-9.html"> صندوق پیام ها  </a> <i> 0 </i> </li>
+                <li><a href="account-10.html"> سوالات متداول و راهنما  </a> </li>
+            </ul>
+        </div>
+    </section>
+    <!-- /side bar -->
+    <!-- side bar -->
+    @*<section class="sidebar layer-style open progress-account">
+            <header><h3> تکمیل حساب کاربری </h3><i class="zmdi zmdi-chevron-down"></i></header>
+            <div class="inner">
+                <div class="complete-progress">
+                    <div id="progress" data-range="0.75"><canvas width="100" height="100" style="height: 80px; width: 80px;"></canvas><canvas width="100" height="100" style="height: 80px; width: 80px;"></canvas> <span>75%</span> </div>
+                </div>
+
+                <div class="detail">
+                    <span> 25% تا تکمیل حساب کاربری  </span>
+                </div>
+            </div>
+        </section>*@
+    <!-- /side bar -->
+</div>

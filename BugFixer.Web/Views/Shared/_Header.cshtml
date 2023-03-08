@@ -1,0 +1,28 @@
+﻿<header class="main-header">
+    <div class="container">
+        <nav>
+            <span><i class="icon-menu-2"></i></span>
+            <div class="inner">
+
+                <partial name="_TopMenu" />
+
+                <div class="clientarea-layer">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @await Component.InvokeAsync("UserInfoMainPAge")
+                    }
+                    else
+                    {
+                        <div class="signout-status hidden">
+                            <i class="icon-profile"></i>
+                            <a href=""> ورود / </a>
+                            <a href=""> عضویت </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
+
+        <a href="" class="logo"><img src="/images/logo-dark.svg"></a>
+    </div>
+</header>

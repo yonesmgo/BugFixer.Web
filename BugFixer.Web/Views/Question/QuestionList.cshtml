@@ -1,0 +1,133 @@
+﻿@model BugFixer.Domain.ViewModels.Question.FilterQuestionViewModel
+@{
+    ViewData["Title"] = "لیست سوالات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="/css/page.css">
+    <link rel="stylesheet" type="text/css" href="/css/question.css">
+}
+@section Header
+{
+    <partial name="_Header" />
+}
+<div class="user-page-style">
+    <div class="breadcumb-layer">
+        <div class="container">
+            <ul itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
+                <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a href="/" itemprop="item"><span itemprop="name"> صفحه اصلی  </span></a></li>
+                <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a asp-action="QuestionList" asp-controller="Question" itemprop="item"><span itemprop="name"> @ViewData["Title"] </span></a></li>
+                <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a href="javascript:void(0)" itemprop="item"><span itemprop="name"> @ViewData["Title"] </span></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="tags-page page-style">
+        <div class="container">
+            <div class="right-col">
+                <header class="top-heading">
+                    <h1><a href="javascript:void(0)"> @ViewData["Title"] </a></h1>
+                    <span> پرسش ثبت شده : <i>@Model.AllEntityCount</i> </span>
+                </header>
+
+                <form asp-action="QuestionList" asp-controller="Question" id="Filter_Form" method="get">
+                    <input type="hidden" asp-for="CurrentPage" />
+                    <div class="top-layer">
+                        <div class="search-layer">
+                            <input type="text" asp-for="Title" placeholder="دنبال چه سوالی میگردی ؟ ">
+                            <button type="submit"><i class="icon-search"></i></button>
+                        </div>
+                        <div class="filter-layer">
+
+                            <div class="select-layer">
+                                <select onchange="SubmitQuestionForm()" asp-for="sort" asp-items="Html.GetEnumSelectList(typeof(BugFixer.Domain.ViewModels.Question.FilterQuestuionSortEnum))">
+                                    @*<option> جدیدترین پرسش ها </option>
+                                        <option> پربحث ترین پرسش ها </option>
+                                        <option> پرامتیازترین پرسش ها </option>
+                                        <option> پر رای ترین پرسش ها </option>
+                                        <option> پرسش های یک هفته اخیر  </option>
+                                        <option> پرسش های یک ماه اخیر  </option>*@
+                                </select>
+                            </div>
+                            @*<button><i class="icon-sort"></i></button>*@
+                        </div>
+                    </div>
+                </form>
+                <!-- /Top -->
+                <!-- questions -->
+                <div class="questions-layer">
+                    <!-- questions list -->
+                    <div class="questions-list">
+                        <!-- item -->
+
+                        @if (Model.Entites.Any())
+                        {
+                            foreach (var Question in Model.Entites)
+                            {
+                                var classname = string.Empty;
+                                if (Question.HasAnyAnswer)
+                                {
+                                    classname = "answered";
+                                }
+                                else if (Question.HasTrueAnswer)
+                                {
+                                    classname = "selected";
+                                }
+                                else
+                                {
+                                    classname = "";
+                                }
+                                <article class="@classname">
+                                    <h2><a asp-action="QuestionDetails" asp-controller="Question" asp-route-QuestionId="@Question.Id">@Question.Title</a></h2>
+                                    <span> 0 <i class="icon-comment-1"></i> </span>
+                                    <ul>
+                                        <li> پرسیده شده توسط  <a href="javascript:void(0)"> @Question.UserDisplayName </a> @Question.CreatedDate </li>
+                                        @if (!string.IsNullOrEmpty(Question.AnswerByDisplayName) && !string.IsNullOrEmpty(Question.AnswerByCreatedDate))
+                                        {
+                                            <li> پاسخ داده  شده توسط  <a href="javascript:void(0)"> @Question.AnswerByDisplayName </a> @Question.AnswerByCreatedDate </li>
+                                        }
+                                        else
+                                        {
+                                            <li> بدون پاسخ </li>
+                                        }
+                                    </ul>
+                                    <div class="detail">
+                                        <div class="tags-layer">
+
+
+                                            @foreach (var item in Question.TagsList)
+                                            {
+                                                <a asp-action="QuestionListByTag" asp-controller="Question" asp-route-tagname="@item"> @item </a>}
+
+
+                                        </div>
+                                        <div class="left-side">
+                                            <span> @Question.Score<i class="icon-star"></i> </span>
+                                            <span> @Question.ViewCount <i class="icon-eye"></i> </span>
+                                        </div>
+                                    </div>
+                                </article>
+
+                            }
+                        }
+
+                        <!-- /item -->
+
+                    </div>
+                    <!-- /questions list -->
+                </div>
+                <!-- /questions -->
+                <!-- pagination -->
+
+                <partial name="_SitePaging" model="Model.GetPaging()" />
+
+                <!-- /pagination -->
+            </div>
+            <!-- aside -->
+            <partial name="_LeftSide_QuestionList" />
+            <!-- /aside -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

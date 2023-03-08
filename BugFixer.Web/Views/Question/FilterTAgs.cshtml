@@ -1,0 +1,101 @@
+﻿@model BugFixer.Domain.ViewModels.Question.FilterTagViewModel
+@{
+    ViewData["Title"] = "لیست تگ ها ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="/css/page.css">
+    <link rel="stylesheet" type="text/css" href="/css/tags.css">
+}
+@section Header
+{
+    <partial name="_Header" />
+}
+<div class="user-page-style">
+    <div class="breadcumb-layer">
+        <div class="container">
+            <ul itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
+                <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a href="/" itemprop="item"><span itemprop="name"> صفحه اصلی  </span></a></li>
+                <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a asp-action="QuestionList" asp-controller="Question" itemprop="item"><span itemprop="name"> @ViewData["Title"] </span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tags-page page-style">
+        <div class="container">
+            <div class="right-col">
+                <header class="top-heading">
+                    <h1><a href="javascript:void(0)"> @ViewData["Title"] </a></h1>
+                    <span> تعداد تگ ها  : <i>@Model.AllEntityCount</i> </span>
+                </header>
+
+                <form asp-action="FilterTAgs" asp-controller="Question" id="Filter_Form" method="get">
+                    <input type="hidden" asp-for="CurrentPage" />
+                    <div class="top-layer">
+                        <div class="search-layer">
+                            <input type="text" asp-for="Title" placeholder="دنبال چه تگی میگردی ؟ ">
+                            <button type="submit"><i class="icon-search"></i></button>
+                        </div>
+                        <div class="filter-layer">
+
+                            <div class="select-layer">
+                                <select onchange="SubmitTagForm()" asp-for="Sort" asp-items="Html.GetEnumSelectList(typeof(BugFixer.Domain.ViewModels.Question.FilterTagEnum))">
+                                    @*<option> جدیدترین پرسش ها </option>
+                                        <option> پربحث ترین پرسش ها </option>
+                                        <option> پرامتیازترین پرسش ها </option>
+                                        <option> پر رای ترین پرسش ها </option>
+                                        <option> پرسش های یک هفته اخیر  </option>
+                                        <option> پرسش های یک ماه اخیر  </option>*@
+                                </select>
+                            </div>
+                            @*<button><i class="icon-sort"></i></button>*@
+                        </div>
+                    </div>
+                </form>
+                <!-- /Top -->
+                <!-- questions -->
+                <div class="questions-layer">
+                    <!-- Tags list -->
+                    <div class="tags-list-layer">
+                        <div class="row">
+
+                            @if (Model.Entites.Any())
+                            {
+                                foreach (var item in Model.Entites)
+                                {
+                                    <!-- col -->
+                                    <div class="col-md-4 col-sm-6 col-xs-6 tag-col">
+                                        <article>
+                                            <h2><a asp-action="QuestionListByTag" asp-route-tagname="@item.Title" asp-controller="Question"> @item.Title </a></h2>
+                                            @if (!string.IsNullOrEmpty(item.Description))
+                                            {<p> </p>}
+                                            else
+                                            {
+                                                <p>توضیحات ثبت نشده است </p>
+                                            }
+                                            <div class="detail">
+                                                <span> <i>@item.UseCount</i> پرسش </span>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <!-- /col -->
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!-- /Tags list -->
+                </div>
+                <!-- /questions -->
+                <!-- pagination -->
+
+                <partial name="_SitePaging" model="Model.GetPaging()" />
+
+                <!-- /pagination -->
+            </div>
+            <!-- aside -->
+            <partial name="_LeftSide_QuestionList" />
+            <!-- /aside -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

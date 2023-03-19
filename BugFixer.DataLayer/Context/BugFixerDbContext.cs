@@ -21,6 +21,8 @@ namespace BugFixer.DataLayer.Context
         #endregion
         #region DbSet
 
+
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<EmailSetting> EmailSettings { get; set; }

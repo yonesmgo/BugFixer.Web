@@ -83,6 +83,7 @@ $('#CountryId').on("change", function () {
         $("#CityId").prop("disabled", true);
     }
 })
+
 var datepickers = document.querySelectorAll(".datepicker");
 if (datepickers.length) {
     for (datepicker of datepickers) {
@@ -100,6 +101,7 @@ if (datepickers.length) {
         });
     }
 }
+var editorPush = [];
 var Editor = document.querySelectorAll(".editor");
 if (Editor.length) {
     for (edit of Editor) {
@@ -112,6 +114,7 @@ if (Editor.length) {
             })
             .then(editor => {
                 window.editor = editor;
+                editorPush.push(editor);
             })
             .catch(error => {
                 console.log(error);
@@ -145,4 +148,26 @@ function SubmitFilterFormPagonation(pageid) {
 
 function SubmitTagForm() {
     $('#Filter_Form').submit();
+}
+
+function AnswerQuestionFormDone(response) {
+
+    endLouading('#submit-comment');
+    if (response.status == 'Success') {
+        swal("اعلان", "پاسخ شما ثبت شد", "success");
+    }
+    else if (response.status == 'EmptyAnswer') {
+        swal("هشدار", "متن پاسخ نمیتواند خالی باشد ", "warning")
+    }
+    else if (response.status == 'Error') {
+        swal("اعلان", "خطایی رخ داده است  لطفا مجددا تلاش بفرمایید", "error")
+    }
+    for (var editor of editorPush) {
+        editor.setData('');
+    }
+    $("#AnswersBox").load(location.href + " #AnswersBox");
+
+    $('html, body').animate({
+        scrollTop: $("#AnswersBox").offset().top
+    }, 1000);
 }

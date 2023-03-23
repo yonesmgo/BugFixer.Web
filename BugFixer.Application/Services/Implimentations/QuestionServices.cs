@@ -218,7 +218,48 @@ namespace BugFixer.Application.Services.Implimentations
             return await _question.GetTaglistByQuestionId(QuestionId);
         }
 
+        public async Task<bool> AnswerQuestion(AnswerQuestionViewModel model)
+        {
+            //var question = await GetQuestionByID(model.QuestionID);
+            //if (question == null)
+            //{
+            //    return false;
+            //}
+            var answer = new Answer()
+            {
+                Content = model.Answer.SanitizeText(),
+                UserId = model.UserID,
+                QuestionId = model.QuestionID
+            };
+            await _question.AddAnswer(answer);
+            await _question.Savechanges();
+            return true;
+        }
 
+        public async Task<List<Answer>> GetallQuestionAnswer(long questionID)
+        {
+            var s = await _question.GetListOfAnswer(questionID);
+            return s;
+        }
+
+        public async Task addViewForQuestion(string userIp, long QuestionID)
+        {
+            bool res = await _question.IsExitViwByUserName(userIp, QuestionID);
+            if (res)
+            {
+                return;
+            }
+            else
+            {
+                var view = new QuestionView()
+                {
+                    QuestionId = QuestionID,
+                    UserIP = userIp,
+                };
+                await _question.AddQuestionView(view);
+                await _question.Savechanges();
+            }
+        }
         #endregion
     }
 }

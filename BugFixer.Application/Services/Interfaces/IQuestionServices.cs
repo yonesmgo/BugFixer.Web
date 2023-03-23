@@ -18,14 +18,14 @@ namespace BugFixer.Application.Services.Interfaces
         Task<FilterTagViewModel> FilterTags(FilterTagViewModel filter);
 
         Task<Question?> GetQuestionByID(long Id);
-
-
         #region Questions
         public Task<FilterQuestionViewModel> FilterQuestion(FilterQuestionViewModel filter);
         #endregion
 
         Task<List<string>> GetTaglistByQuestionId(long QuestionId);
-
+        Task<bool> AnswerQuestion(AnswerQuestionViewModel model);
+        Task<List<Answer>> GetallQuestionAnswer(long questionID);
+        Task addViewForQuestion(string userIp, long QuestionID);
 
     }
 }

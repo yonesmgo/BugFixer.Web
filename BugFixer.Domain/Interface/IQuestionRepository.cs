@@ -27,5 +27,10 @@ namespace BugFixer.Domain.Interface
         Task<Question?> GetQuestionByID(long Id);
 
         Task<List<string>> GetTaglistByQuestionId(long QuestionId);
+        Task AddAnswer(Answer answer);
+        Task<List<Answer>> GetListOfAnswer(long questionID);
+        Task<bool> IsExitViwByUserName(string userIp, long questionID);
+
+        Task AddQuestionView(QuestionView questionView);
     }
 }

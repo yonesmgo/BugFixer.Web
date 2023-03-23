@@ -4,11 +4,6 @@ using BugFixer.Domain.Entities.Questions;
 using BugFixer.Domain.Entities.SiteSetting;
 using BugFixer.Domain.Entities.Tags;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BugFixer.DataLayer.Context
 {
@@ -20,6 +15,8 @@ namespace BugFixer.DataLayer.Context
         }
         #endregion
         #region DbSet
+
+
 
         public DbSet<User> Users { get; set; }
 

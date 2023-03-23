@@ -104,6 +104,30 @@ namespace BugFixer.DataLayer.Repositories
             return q;
 
         }
+        public async Task AddAnswer(Answer answer)
+        {
+            await _context.Answers.AddAsync(answer);
+        }
+
+        public async Task<List<Answer>> GetListOfAnswer(long questionID)
+        {
+            var answelist = await _context.Answers.
+                Include(s => s.User).
+                Where(a => a.QuestionId == questionID && !a.IsDelete).
+                OrderByDescending(a => a.CreateDate).ToListAsync();
+            return answelist;
+        }
+
+
+        public async Task<bool> IsExitViwByUserName(string userIp, long questionID)
+        {
+            return await _context.QuestionViews.AnyAsync(s => s.UserIP.Equals(userIp) && s.QuestionId == questionID);
+        }
+
+        public async Task AddQuestionView(QuestionView questionView)
+        {
+            await _context.QuestionViews.AddAsync(questionView);
+        }
         #endregion
     }
 }

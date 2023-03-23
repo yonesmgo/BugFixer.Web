@@ -1,19 +1,35 @@
-﻿<aside>
-    <a  asp-action="CreateQuestion" asp-controller="question" class="ask-question"> ثبت پرسش جدید </a>
+﻿
+
+<aside>
+
+    <a asp-action="CreateQuestion" asp-controller="question" class="ask-question"> ثبت پرسش جدید </a>
+
+    <section class="related-post-layer">
+        <header><h2> پرسش های مرتبط </h2></header>
+        <div class="inner">
+            <ul>
+                <li class="answered"><span> 2.2K <i class="icon-comment-1"></i> </span><a href=""> نحوه ی پیاده سازی فروشگاه اینترنتی با فریم ورک لاراول </a></li>
+                <li class="selected"><span> 23 <i class="icon-comment-1"></i> </span><a href=""> نحوه ی پیاده سازی فروشگاه اینترنتی با فریم ورک لاراول </a></li>
+            </ul>
+        </div>
+    </section>
+
     <!-- most popular post -->
     <section class="most-popular-questions">
+
         <article>
-            <header><h2 style="font-weight:bolder !important"> پر امتیازترین پرسش های یک ماه اخیر </h2></header>
+            <header><h2> پر امتیازترین پرسش های یک ماه اخیر </h2></header>
             <ul>
                 <li>
                     <span> 10K <i class="icon-star"></i></span>
                     <h2><a href=""> معرفی بهترین و ساده ترین فریم ورک php برای پیاده سازی فروشگاه اینترنتی </a></h2>
                 </li>
+
             </ul>
         </article>
 
-        <article class="mt-50">
-            <header><h2  style="font-weight:bolder !important"> پر بحث ترین پرسش های یک ماه اخیر </h2></header>
+        <article>
+            <header><h2> پر بحث ترین پرسش های یک ماه اخیر </h2></header>
             <ul>
                 <li>
                     <span> 8.5K <i class="icon-comment"></i></span>
@@ -34,13 +50,12 @@
     <!-- /most controversial posts -->
     <!-- banner -->
     <div class="banner-layer">
-        <a href=""><img src="images/banner.jpg"></a>
+        <a href=""><img src="/images/banner.jpg"></a>
     </div>
     <!-- /banner -->
     <!-- banner -->
     <div class="banner-layer">
-        <a href=""><img src="images/banner-2.jpg"></a>
+        <a href=""><img src="/images/banner-2.jpg"></a>
     </div>
     <!-- /banner -->
-
 </aside>

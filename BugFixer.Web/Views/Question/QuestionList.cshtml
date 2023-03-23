@@ -80,7 +80,7 @@
                                 }
                                 <article class="@classname">
                                     <h2><a asp-action="QuestionDetails" asp-controller="Question" asp-route-QuestionId="@Question.Id">@Question.Title</a></h2>
-                                    <span> 0 <i class="icon-comment-1"></i> </span>
+                                    <span> @Question.AnswerSCount <i class="icon-comment-1"></i> </span>
                                     <ul>
                                         <li> پرسیده شده توسط  <a href="javascript:void(0)"> @Question.UserDisplayName </a> @Question.CreatedDate </li>
                                         @if (!string.IsNullOrEmpty(Question.AnswerByDisplayName) && !string.IsNullOrEmpty(Question.AnswerByCreatedDate))

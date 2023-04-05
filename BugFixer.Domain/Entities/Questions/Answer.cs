@@ -35,6 +35,8 @@ namespace BugFixer.Domain.Entities.Questions
 
         public Question Question { get; set; }
 
+        public ICollection<AnswerUserScore> AnswerUserScores { get; set; }
+
         #endregion
     }
 }

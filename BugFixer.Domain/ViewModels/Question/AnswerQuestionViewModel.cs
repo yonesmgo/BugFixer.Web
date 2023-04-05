@@ -12,4 +12,11 @@ namespace BugFixer.Domain.ViewModels.Question
         public long QuestionID { get; set; }
         public long UserID { get; set; }
     }
+    public class EditAnswerViewModel
+    {
+        public string Answer { get; set; }
+        public long AnswerID { get; set; }
+        public long UserID { get; set; }
+        public long QuestionId { get; set; }
+    }
 }

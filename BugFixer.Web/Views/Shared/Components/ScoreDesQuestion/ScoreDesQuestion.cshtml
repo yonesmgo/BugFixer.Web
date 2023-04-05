@@ -1,0 +1,17 @@
+﻿@model BugFixer.Domain.ViewModels.Question.FilterQuestionViewModel
+
+<article>
+    <header><h2> پر امتیازترین پرسش ها </h2></header>
+    <ul>
+        @if (Model is not null && Model.Entites.Any())
+        {
+            @foreach (var item in Model.Entites)
+            {
+                <li>
+                    <span> @item.Score <i class="icon-star"></i></span>
+                    <h2><a asp-action="QuestionDetails" asp-controller="Question" asp-route-QuestionId="@item.Id">  @item.Title </a></h2>
+                </li>
+            }
+        }
+    </ul>
+</article>

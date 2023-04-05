@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BugFixer.Domain.Entities.Questions
 {
-    public class QuestionUserScore:BaseEntity
+    public class QuestionUserScore : BaseEntity
     {
         #region Property
         public QuestionScoreType Type { get; set; }

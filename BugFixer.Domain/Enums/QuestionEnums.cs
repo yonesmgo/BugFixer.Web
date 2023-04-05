@@ -14,4 +14,20 @@ namespace BugFixer.Domain.Enums
         [Display(Name = "منفی")]
         Mines,
     }
+    public enum AnswerScoreType
+    {
+        [Display(Name = "مثبت")]
+        plus,
+        [Display(Name = "منفی")]
+        Mines,
+    }
+
+    public enum CreateScoreForAnswerResult
+    {
+        error,
+        notEnoghScoreForDown,
+        notEnoghScoreForUp,
+        UserCreateScoreBefore,
+        success
+    }
 }

@@ -1,0 +1,48 @@
+﻿@model BugFixer.Domain.ViewModels.UserPanel.Question.FilterQuestionBooknarksViewModel
+@using BugFixer.Application.Extentions;
+@{
+    ViewData["Title"] = "سوالات نشان شده";
+    Layout = "~/Areas/UserPanel/Views/Shared/_UserPanelLayout.cshtml";
+}
+@section Header
+{
+    <partial name="_Header" />
+}
+@section Breadrcumb
+{
+    <li itemtype="http://schema.org/ListItem" itemscope itemprop="itemListElement"><a href="javascript:void(0)" itemprop="item"><span itemprop="name"> @ViewData["Title"] </span></a></li>
+}
+<section class="questions-layer layer-style">
+    <header>
+        <h2>
+            <i>
+                @ViewData["Title"]
+            </i>
+        </h2>
+    </header>
+    <form method="get" asp-action="QuestionBookmarks" asp-controller="Question" asp-area="UserPanel" id="Filter_Form">
+        <input type="hidden" asp-for="CurrentPage"/>
+    </form>
+    @if (Model.Entites.Any())
+    {
+        foreach (var item in Model.Entites)
+        {
+            <article class="artticle-border">
+                <h3><a asp-controller="Question" asp-action="QuestionDetails" asp-route-questionId="@item.Id">@item.Title</a><span> @item.CreateDate.AsTimeAgo() </span></h3>
+                <div class="detail">
+                    <span><i class="icon-eye"></i>@item.ViewCount بازدید</span>
+                    <span><i class="icon-star"></i>@item.Score  امتیاز</span>
+                </div>
+            </article>
+            <hr/>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">
+            فعلا سوالی را نشان نکرده اید
+        </div>
+    }
+    <partial name="_SitePaging" model="@Model.GetPaging()" />
+</section>
+

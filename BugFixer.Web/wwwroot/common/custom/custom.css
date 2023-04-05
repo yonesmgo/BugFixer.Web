@@ -43,6 +43,7 @@
 .mb-10 {
     margin-bottom: 10px !important;
 }
+
 .mt-10 {
     margin-top: 10px !important;
 }
@@ -60,5 +61,27 @@
 
 .ms-1 {
     margin-left: 10px !important;
-    color: #2a4658 ;
+    color: #2a4658;
+}
+
+.gold-color {
+    color: #ffb301 !important;
+}
+
+.ui-menu-item-wrapper {
+    font-family: 'IRANSans' !important;
+    padding: 6px !important;
+    max-width:500px !important;
+}
+.ui-autocomplete {
+    max-height: 150px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+
+.artticle-border {
+    border-right: 5px solid #77c444 !important;
+
 }

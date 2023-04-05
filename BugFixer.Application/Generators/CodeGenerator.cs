@@ -10,7 +10,7 @@ namespace BugFixer.Application.Generators
     {
         public static string CreateActivationCode()
         {
-            return  Guid.NewGuid().ToString("N");
+            return Guid.NewGuid().ToString("N");
         }
     }
 }

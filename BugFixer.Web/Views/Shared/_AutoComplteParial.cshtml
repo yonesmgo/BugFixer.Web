@@ -1,0 +1,29 @@
+﻿<link rel="stylesheet" href="/common/autocomplete/jquery-ui.css">
+<script src="/common/autocomplete/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("[question-auto-complete]").autocomplete({
+            source: function (request, response) {
+                console.log(request);
+                var curentvalue = request.term;
+                $.ajax({
+                    url: "/get-question",
+                    data: { name: curentvalue },
+                    type: "get",
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return item;
+                            }))
+                    }
+                })
+            },
+            minLength: 3,
+            select: function (event, item) {
+                $('[ question-auto-complete]').val(item.item.value);
+                $('#QuestionSearchForm').submit();
+            }
+        });
+    });
+</script>
+

@@ -1,9 +1,10 @@
 ﻿<div class="rules-layer">
     <p class="page-style"> لطفا قبل از ثبت پرسش  ، ابتدا موضوع مورد نظر خود را در سایت جستجو نمایید ، در صورتی که پاسخ مورد نظر خود را دریافت نکردید ، به ثبت پرسش اقدام نمایید ، از ثبت پرسش های تکراری جدا خودداری فرمایید </p>
 
-    <form>
-        <input type="text" name="" placeholder="جستجوی پرسش مورد نظر .">
-        <button><i class="icon-search"></i></button>
+    <form asp-action="QuestionList" asp-controller="Question" id="QuestionSearchForm" method="get">
+
+        <input type="text" question-auto-complete name="Title"  placeholder="جستجوی پرسش مورد نظر .">
+        <button type="submit"><i class="icon-search"></i></button>
     </form>
 
 </div>

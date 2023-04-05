@@ -40,7 +40,7 @@
                     <header>
 
                         <!-- use this button for edit Post , show only for author -->
-                        <button><i class="icon-pencil-edit"></i></button>
+                        <button onclick="LouadUrl('@Url.Action("EditQuestion", "Question", new { id=Model.Id})')"><i class="icon-pencil-edit"></i></button>
 
                         <h1><a href="javascript:void(0)"> @Model.Title</a></h1>
                         <span> @Model.CreateDate.AsTimeAgo() </span>
@@ -56,22 +56,30 @@
                         <span><i>  @Model.Score </i> امتیاز </span>
 
                     </header>
+                    @Html.AntiForgeryToken()
 
-                    <article>
+                    <article id="QuestionDetailsMainBox">
                         <div class="inner">
                             @Html.Raw(Model.Content)
                             <div class="rating-layer">
-                                <form class="scoring-layer" action="" method="">
-                                    <button class="plus"><i class="icon-caret-up"></i></button>
+                                <div class="scoring-layer">
+                                    <button class="plus" onclick="ScoeUpForQuestion(@Model.Id)"><i class="icon-caret-up"></i></button>
                                     <span> @Model.Score </span>
-                                    <button class="negative"><i class="icon-caret-down"></i></button>
-                                </form>
-                                <form class="star-rating" action="" method="">
+                                    <button onclick="ScoeDownForQuestion(@Model.Id)" class="negative"><i class="icon-caret-down"></i></button>
+                                </div>
+                                <div class="star-rating">
                                     <!-- if user rate this post , use " active " class for Button and disabled this -->
                                     <!-- <button class="active"><i class="icon-star"></i></button> -->
-                                    <button><i class="icon-star"></i></button>
+                                    @if (ViewBag.IsBookmarks)
+                                    {
+                                        <button onclick="AddQuestionToBookmark(@Model.Id)"><i class="icon-star gold-color"></i></button>
+                                    }
+                                    else
+                                    {
+                                        <button onclick="AddQuestionToBookmark(@Model.Id)"><i class="icon-star"></i></button>
+                                    }
 
-                                </form>
+                                </div>
                             </div>
 
                         </div>
@@ -90,15 +98,15 @@
                                 <div class="share-detail">
                                     <div class="short-link">
                                         <p> لینک کوتاه شامل شناسه شما </p>
-                                        <input type="text" name="" readonly="" value="http://gl.co/ShKiLO">
+                                        <input type="text" name="" readonly="" value="@($"{BugFixer.Application.Statics.PathTools.SiteAddress}/q/{Model.Id}")">
                                     </div>
-                                    <div class="socials">
-                                        <a href=""><i class="icon-facebook"></i></a>
-                                        <a href=""><i class="icon-twitter"></i></a>
-                                        <a href=""><i class="icon-linkedin"></i></a>
-                                        <a href=""><i class="icon-telegram"></i></a>
-                                        <a href=""><i class="icon-google-plus"></i></a>
-                                    </div>
+                                    @*<div class="socials">
+                                            <a href=""><i class="icon-facebook"></i></a>
+                                            <a href=""><i class="icon-twitter"></i></a>
+                                            <a href=""><i class="icon-linkedin"></i></a>
+                                            <a href=""><i class="icon-telegram"></i></a>
+                                            <a href=""><i class="icon-google-plus"></i></a>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>

@@ -176,6 +176,13 @@ namespace BugFixer.Application.Services.Implimentations
         public async Task ChangeUserAvatar(long userID, string Filename)
         {
             var user = await GetUserByID(userID);
+
+            #region DeleteAvatar
+            if(user.Avatar!=PathTools.DefaultUserAvatar)
+            {
+                user.Avatar.DeleteFile(PathTools.USerAvatarServerPath);
+            }
+            #endregion
             user.Avatar = Filename;
             await _userRepository.Update(user);
             await _userRepository.save();

@@ -13,25 +13,25 @@ else
         <div class="answer-item">
             <div class="top-detail">
                 <span>@item.CreateDate.AsTimeAgo()  </span>
-                <button><i class="icon-pencil-edit"></i></button>
+                <button onclick="LouadUrl('@Url.Action("EditAnswer", "Question", new { AnswerId=item.Id})')"><i class="icon-pencil-edit"></i></button>
             </div>
             <div class="inner">
                 @Html.Raw(item.Content)
 
                 <div class="rating-layer">
                     <div class="scoring-layer" action="" method="">
-                        <button class="plus"><i class="icon-caret-up"></i></button>
+                        <button class="plus" onclick="ScoeUpForAnswer(@item.Id)"><i class="icon-caret-up"></i></button>
                         <span> @item.Score </span>
-                        <button class="negative"><i class="icon-caret-down"></i></button>
+                        <button class="negative" onclick="ScoeDownForAnswer(@item.Id)"><i class="icon-caret-down"></i></button>
                     </div>
                     <div class="selected-answer">
                         @if (!item.IsTrue)
                         {
-                            <button class="icon-check"></button>
+                            <button onclick="selectTrueAnswer('@item.Id')" class="icon-check"></button>
                         }
                         else
                         {
-                            <button class="selected"></button>
+                            <button onclick="selectTrueAnswer('@item.Id')" class="selected"><i class="icon-check"></i></button>
                         }
                     </div>
                 </div>

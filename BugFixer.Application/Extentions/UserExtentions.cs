@@ -10,18 +10,27 @@ namespace BugFixer.Application.Extentions
 {
     public static class UserExtentions
     {
-        public static long  GetUserId(this ClaimsPrincipal claimsPrincipal)
+        public static long GetUserId(this ClaimsPrincipal claimsPrincipal)
         {
-            var identifier=claimsPrincipal.Claims.SingleOrDefault(s=>s.Type==ClaimTypes.NameIdentifier);
+            var identifier = claimsPrincipal.Claims.SingleOrDefault(s => s.Type == ClaimTypes.NameIdentifier);
             if (identifier == null) return 0;
             return long.Parse(identifier.Value);
         }
 
         public static string GetUserDisplayname(this User user)
         {
-          if(!string.IsNullOrEmpty(user.FirstName) ||!string.IsNullOrEmpty(user.LastName))
+            if (!string.IsNullOrEmpty(user.FirstName) || !string.IsNullOrEmpty(user.LastName))
             {
                 return $"{user.FirstName} {user.LastName}";
+            }
+            return user.Email.Split("@")[0];
+
+        }
+        public static string GetUserName(this User user)
+        {
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                return $"{user.Email.Replace("@mtnirancell.ir", "")}";
             }
             return user.Email.Split("@")[0];
 

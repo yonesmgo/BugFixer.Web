@@ -196,6 +196,38 @@ namespace BugFixer.DataLayer.Migrations
                     b.ToTable("Answers");
                 });
 
+            modelBuilder.Entity("BugFixer.Domain.Entities.Questions.AnswerUserScore", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long>("AnswerID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AnswerUserScores");
+                });
+
             modelBuilder.Entity("BugFixer.Domain.Entities.Questions.Question", b =>
                 {
                     b.Property<long>("Id")
@@ -504,6 +536,25 @@ namespace BugFixer.DataLayer.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BugFixer.Domain.Entities.Questions.AnswerUserScore", b =>
+                {
+                    b.HasOne("BugFixer.Domain.Entities.Questions.Answer", "Answer")
+                        .WithMany("AnswerUserScores")
+                        .HasForeignKey("AnswerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BugFixer.Domain.Entities.Account.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Answer");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BugFixer.Domain.Entities.Questions.Question", b =>
                 {
                     b.HasOne("BugFixer.Domain.Entities.Account.User", "User")
@@ -593,6 +644,11 @@ namespace BugFixer.DataLayer.Migrations
                     b.Navigation("UserCities");
 
                     b.Navigation("UserCountries");
+                });
+
+            modelBuilder.Entity("BugFixer.Domain.Entities.Questions.Answer", b =>
+                {
+                    b.Navigation("AnswerUserScores");
                 });
 
             modelBuilder.Entity("BugFixer.Domain.Entities.Questions.Question", b =>

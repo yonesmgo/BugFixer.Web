@@ -74,17 +74,17 @@
                     <ul style="display: none;">
 
                         <li><a asp-action="EditInfo" asp-controller="Account" asp-area="UserPanel"> ویرایش حساب کاربری </a></li>
-                        <li class="active"><a href="account-2.html"> تنظیمات حساب کاربری </a></li>
-                        <li><a href="account-3.html"> تغییر رمز عبور </a></li>
+                        @*<li class="active"><a href="account-2.html"> تنظیمات حساب کاربری </a></li>
+                        <li><a href="account-3.html"> تغییر رمز عبور </a></li>*@
                     </ul>
                     @*<label class="sign-dropdown"><i class="icon-chevron-up"></i></label>
                         <label class="sign-dropdown"><i class="icon-chevron-up"></i></label>*@
                 </li>
-                <li><a href="account-6.html"> پاسخ های من  </a> <i> 12 </i> </li>
-                <li><a href="account-7.html"> دنبال کنندگان  </a> <i> 12 </i> </li>
-                <li><a href="account-8.html"> دنبال شونده ها  </a> <i> 24 </i> </li>
+                <li><a asp-action="QuestionBookmarks" asp-controller="Question" asp-area="UserPanel"> سوالات نشان شده من   </a>  </li>
+                <li><a asp-action="QuestionByUser" asp-controller="Question" asp-area="UserPanel"> سوالات پرسیده شده من  </a> </li>
+                @*<li><a href="account-8.html"> دنبال شونده ها  </a> <i> 24 </i> </li>
                 <li><a href="account-9.html"> صندوق پیام ها  </a> <i> 0 </i> </li>
-                <li><a href="account-10.html"> سوالات متداول و راهنما  </a> </li>
+                <li><a href="account-10.html"> سوالات متداول و راهنما  </a> </li>*@
             </ul>
         </div>
     </section>
